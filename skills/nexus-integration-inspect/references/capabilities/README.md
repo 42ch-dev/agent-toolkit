@@ -17,7 +17,7 @@
 - 修改 `../nexus` 与 `../spoke` 任何文件
 - 向 `{KNOWLEDGE_DIR}`（`.mstar/knowledge/`）写入
 
-**数据来源约定**：每条能力行含 `source_path`（证据来源路径）与 `version_source`（版本来源文件 + 字段），保证可溯源；无法溯源到版本号 + 路径的能力不落盘。
+**数据来源约定**：每条能力行含 `source_path`（证据来源路径）与 `version_source`（版本来源文件 + 字段），保证可溯源；无法溯源到版本号 + 路径的能力不落盘。`source_path` 指向 crate/包目录（如 `../nexus/crates/nexus-spoke-adapter/`、`../spoke/packages/spoke-schemas/`）时是**包定位符（package locator）**而非实现文件引用——证据是该目录内 manifest/README/公开接口面；逐 crate 读实现仍属越界（见上「禁止」）。
 
 ## `<area>` 封闭词表（id 第二段）
 
@@ -48,7 +48,7 @@
 ## 版本跟踪约定
 
 - 行字段：`version`（来源版本号）+ `version_source`（来源文件 + 字段）+ `survey_date`/`research_date`（同义别名，= 本次调研日 2026-08-15）+ `source_path`（证据路径）。
-- **版本来源优先级**：workspace manifest 版本（`Cargo.toml [workspace.package] version`）> 关键 crate/包 manifest 版本 > CHANGELOG 最新条目 > README/docs 声明版本；胜者记入 `version_source`。
+- **版本来源优先级**（对齐 technical-contract.md §2）：workspace manifest 版本（`Cargo.toml [workspace.package] version`）> CHANGELOG 最新条目 > README/docs 声明版本；胜者记入 `version_source`。**显式补充（文档化 supplement，与 §2 顺序兼容）**：能力承载为独立版本化发布包（npm/crates.io，如 `@42ch/nexus-contracts`）时，以该包自身 manifest 版本为准并直接记入 `version_source`，不套用 workspace 优先级。
 - 多 manifest 仓库（`../spoke` 有 Cargo.toml + Package.swift + go.mod）：每行选一个 manifest 记录；无版本号字段的 manifest（`Package.swift`、`go.mod`）不参与优先级，相关能力回退 workspace manifest。
 - `../nexus` 根部无 `CHANGELOG.md` 属预期（回退 manifest/docs），不是错误。
 - 基线文件头部记录：产品名、调研日期、surveyed HEAD SHA（full + short）、版本优先级说明。
@@ -86,6 +86,6 @@ git -C ../spoke rev-parse --short HEAD   # 与 spoke-capabilities.md 头部比�
 
 ## Open questions（有界调研边界内未确认项）
 
-- `nexus.sdk.compute-module-abi` 与 `nexus.config.strategy-bundle` 的规范版本号不在任何 manifest 中（ABI 规范/`preset.version` 为独立体系），基线以 workspace `0.1.0` 为 fallback；若未来需要独立版本跟踪，需在刷新时单独核对 `.mstar/specs/compute-module-abi.md` 与 `docs/strategy-authoring.md` 的修订历史。
+- `nexus.sdk.compute-module-abi` 与 `nexus.config.strategy-bundle` 的规范版本号不在任何 manifest 中（ABI 规范/`preset.version` 为独立体系），基线以 workspace `0.1.0` 为 fallback；若未来需要独立版本跟踪，需在刷新时单独核对 `.mstar/specs/compute-module-abi.md`（仓库内部规范，**不在有界调研范围内，不作基线证据来源**）与 `docs/strategy-authoring.md` 的修订历史。
 - `../nexus` 的 `schemas/daemon-api/` 目录持续新增路由族（survey 时点见 `schemas/README.md` 计数）；HTTP 面的行级拆分粒度（一行 vs 按路由族多行）由后续 checklist 需求决定，当前保持一行 + description 枚举。
 - Spoke 原生绑定发布通道（NuGet/Maven/SPM/Go/PyPI）的版本号只能从 spoke-connect workspace 版本回推（`Package.swift`/`go.mod` 无版本字段）；若绑定通道版本与 lockstep 版本脱钩，需在刷新时注明。
