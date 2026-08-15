@@ -70,15 +70,17 @@
 - **证据不足以判定归属** → 记 `issue`（低严重度）并注明「证据不足，待维护者复现」，而不是编造能力 id 或 category。
 - **一条证据只支撑一条**：同一报错不要拆成多条重复条目；不同证据的同类问题可合并为一条并列出全部证据位置。
 - **不确定需求是否已被基线覆盖** → 先跨 `nexus-capabilities.md` + `spoke-capabilities.md` 全部行检索（含跨产品）；确实无匹配才 `unlisted`。
+- **长会话条目上限**：条目超过 ~20–30 条时，保留高 severity / 高影响条目、合并同主题行（列出全部证据位置），并在用户摘要中说明截断策略。
 
 ## 7. join 规则与消歧（强制不变量）
 
 - `capability_id`：基线 id **逐字复制**（`<product>.<area>.<slug>`），或字面量 `unlisted`；**禁止发明 / 变换 / 派生 id**。
 - `adoption-gap` ⇒ `capability_id` 为真实基线 id（**不得 `unlisted`**）——adoption 意味着已发布能力未被使用。
 - `undeveloped-need` ⇒ `capability_id` 为 `unlisted`——若需求涉及已发布能力（能力相关但行为不满足），**改记该 id 上的 `issue`**，不是 `undeveloped-need`。
+- **消歧视别（undeveloped-need vs issue）**：同一能力的行为缺陷 / 能力声明范围内不满足 → 该 id 上的 `issue`；需求是已发布能力范围之外的新能力形态（基线无匹配行）→ `undeveloped-need` / `unlisted`，可在 evidence 中说明相关能力。
 - 与 inspect 的衔接：inspect 的「自研建议区」需求（unlisted）需要平台侧评估时，经本技能登记为 `undeveloped-need`；「not-integrated 行」若属平台侧可改进（而非第三方待接入），经本技能登记为 `adoption-gap` 或 `issue`。
 
 ## 8. 停止条件（不猜、不放宽）
 
-1. **基线缺失**：`../nexus-integration-inspect/references/capabilities/` 三文件或 `checklist-template.md` 缺失 → **停止**并报告（blocked_by 未满足）；禁止凭记忆补能力行。
-2. **unlisted 占比 > ~30%**：超过约三成条目无基线 id → **停止**并报告用户：基线可能已过期，先回到 inspect 计划跑刷新流程（`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引），再依赖本报告；**不放松 join 规则**，仍逐字引用或 `unlisted`。
+1. **基线缺失**：`../nexus-integration-inspect/references/capabilities/` 三文件或 `checklist-template.md` 缺失 → **停止**并报告用户；禁止凭记忆补能力行。
+2. **unlisted 占比 > ~30%**：占比 = 第 3+4+5 节 `unlisted` 行数 ÷ 第 3+4+5 节总行数（不含第 2 节已集成项确认）。超过约三成条目无基线 id → **停止**并报告用户、标记基线漂移；刷新流程（`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引）需要 Nexus/Spoke 仓库访问权限、由维护者执行——**不放松 join 规则**，仍逐字引用或 `unlisted`。

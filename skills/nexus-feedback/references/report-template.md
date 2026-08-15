@@ -22,6 +22,8 @@
 
 报告包含六个章节，顺序固定。**分栏由 category 派生（结构性约束，不是审阅者判断）**：`issue` / `blocker` / `undeveloped-need` → 平台待办（第 3、4 节）；`adoption-gap` → 采用缺口（第 5 节）。平台待办与 adoption 内容**不混栏**。
 
+**契约字段对照**：列名 `suggested action` = 契约字段 `action`；`capability id 或 unlisted` = `capability_id`。
+
 ### 1. 背景
 
 一段话说明报告来源：哪个第三方项目 / 什么集成场景 / 为什么提交这份反馈。让维护者无需原 session 也能理解上下文。
@@ -56,7 +58,7 @@
 
 第三方需要、但能力基线**没有匹配 id** 的能力需求。列结构与第 3 节相同；`category` 恒为 `undeveloped-need`，`capability id` 恒为 `unlisted`。
 
-> **消歧（强制）**：若该需求其实已有已发布能力覆盖或相关，**不是** `undeveloped-need`——改记该 id 上的 `issue`（按第 3 节），或按情况记 `adoption-gap`。判据见 `references/extraction-guide.md`。
+> **消歧（强制）**：同一能力的行为缺陷 / 能力声明范围内不满足 → 该 id 上的 `issue`（按第 3 节），或按情况记 `adoption-gap`；需求是已发布能力范围之外的新能力形态（基线无匹配行）→ `undeveloped-need` / `unlisted`，可在 evidence 中说明相关能力。判据见 `references/extraction-guide.md`。
 
 ### 5. 采用缺口（adoption）
 
@@ -66,13 +68,14 @@
 
 ### 6. 建议优先级
 
-给维护者的排期视图：按 `severity` 降序（high → medium → low），同 severity 内按 product 分组；每条一行 = 「`capability id 或 unlisted` — 一句话」并指向第 3/4/5 节对应条目。让维护者扫一眼即可决定先处理什么。
+给维护者的排期视图：按 `severity` 降序（high → medium → low），同 severity 内可按 product 分组（推荐）；每条一行 = 「`capability id 或 unlisted` — 一句话」并指向第 3/4/5 节对应条目。让维护者扫一眼即可决定先处理什么。
 
 ## 落盘规则
 
-- 默认写到 **session 工作区根目录** `nexus-feedback-report.md`（用户可指定其他路径）；**禁止**写入技能目录（`skills/nexus-feedback/`、`skills/nexus-integration-inspect/`）或 harness 目录（`.mstar/` 等）。
+- 默认写到 **session 工作区根目录** `nexus-feedback-report.md`（用户可指定其他路径）；**禁止**写入技能目录（`skills/nexus-feedback/`、`skills/nexus-integration-inspect/`）或 harness 目录（`.mstar/` 等）；用户指定路径落入上述禁止目录时，**拒绝**并提示改为工作区路径。
 - 目标文件已存在时先问用户：覆盖 / 写时间戳文件，**不得静默覆盖**。
 - 无占位符；示例只用于示意（见下）。
+- 生成中断时重新运行本技能即可重新生成报告。
 
 ## 自检（每次落盘必跑）
 
@@ -81,7 +84,7 @@
 3. `adoption-gap` 行无 `unlisted`；`undeveloped-need` 行全部为 `unlisted`。
 4. 平台待办（第 3/4 节）与 adoption（第 5 节）不混栏。
 5. 全文无「见上方 session」；每条 evidence 自包含。
-6. `unlisted` 条目占比 ≤ ~30%；超限 → **停止**并报告用户：基线可能已过期，先回到 inspect 计划跑刷新流程（`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引），再依赖本报告；**不放松 join 规则**。
+6. `unlisted` 条目占比 ≤ ~30%（占比 = 第 3+4+5 节 `unlisted` 行数 ÷ 第 3+4+5 节总行数，不含第 2 节已集成项确认）；超限 → **停止**并报告用户、在报告头标记基线漂移；刷新流程（`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引）需要 Nexus/Spoke 仓库访问权限、由维护者执行——**不放松 join 规则**。
 
 ---
 
