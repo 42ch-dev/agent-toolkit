@@ -89,6 +89,8 @@
 
 本示例演示六章节、全部必填字段、平台待办与 adoption 分栏、至少 1 条 `unlisted` 与至少 1 条 `adoption-gap` 的写法。**示例行为精简子集**——运行时报告只收录实际发现条目；id 均逐字取自基线（非 `unlisted` 行可对基线文件 grep 复核）。
 
+> **完整 worked example**：含全部章节、两种分栏与全量必填字段的**完整演示形态**（可直接复制为运行时输出）见 `references/example-report.md`；本文件内嵌示例为其精简子集。
+
 ```markdown
 # Nexus & Spoke 集成反馈报告
 
