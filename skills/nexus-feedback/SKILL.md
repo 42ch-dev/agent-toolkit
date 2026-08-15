@@ -82,7 +82,7 @@ Open the remaining references when their step comes up:
 - Baseline files or the checklist template are missing → stop and report; never reconstruct capability rows from memory.
 - More than ~30% of the report's items are `unlisted` (ratio = `unlisted` rows in sections 3+4+5 ÷ total rows in sections 3+4+5; section 2 integrated-item confirmations are excluded) → STOP and report; flag baseline drift; the refresh flow (`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引) requires Nexus/Spoke repo access and is run by the maintainers — do not loosen the join rule.
 
-- **Baseline drift check** — when the `../nexus` and `../spoke` checkouts are accessible, compare the surveyed HEAD SHAs in the baseline file headers against the current checkouts (`git rev-parse`) and flag any drift in the report header. Otherwise rely on the unlisted-ratio signal above as the drift heuristic.
+- **Baseline drift check** — when the surveyed Nexus/Spoke repository checkouts are accessible to you, compare the surveyed HEAD SHAs in the baseline file headers against the current checkouts (`git rev-parse`) and flag any drift in the report header. Otherwise rely on the unlisted-ratio signal above as the drift heuristic.
 
 **Output invariants** — default output file `nexus-feedback-report.md` at the session workspace root (user may override the path); never write into this skill's own directory, the inspect skill's directory, or any harness paths. If the target file exists, ask before overwriting — never silently clobber. If the user-specified path falls into one of those forbidden directories, refuse it and ask for a workspace path instead. If the run is interrupted mid-write, simply re-run the skill to regenerate the report.
 

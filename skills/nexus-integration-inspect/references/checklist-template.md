@@ -58,4 +58,4 @@
 ### 示例：自研建议（unlisted，独立章节）
 
 - **需求**：项目需要多租户隔离的团队工作区管理（按租户切分 world 数据与权限），能力基线中无匹配 capability id。
-- **自研方向**：租户映射与权限在你方服务层实现——数据面可复用现有能力（daemon HTTP 面 `nexus.http-api.daemon`、Knowledge Pack 传输格式 `nexus.data.knowledge-pack`）按需接入；不建议改动 Nexus/Spoke 侧。该需求可同步通过反馈流程登记，供维护者评估是否纳入基线。
+- **自研方向**：租户映射与权限在你方服务层实现——数据面可复用现有能力（运行时集成面 `nexus.agent-api.connect-host` 经 Connect 写回、Knowledge Pack 传输格式 `nexus.data.knowledge-pack`）按需接入；不建议改动 Nexus/Spoke 侧。该需求可同步通过反馈流程登记，供维护者评估是否纳入基线。

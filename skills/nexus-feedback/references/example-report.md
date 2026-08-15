@@ -27,7 +27,7 @@ my-agent-demo 是一个基于 Nexus & Spoke 的叙事 agent 集成（TS/Node）�
 | capability id | 能力名 | 确认方式 |
 |---|---|---|
 | spoke.sdk.typescript | @42ch/spoke-schemas + @42ch/spoke-operations (npm) | `package.json` 依赖 `@42ch/spoke-schemas@0.10.0`；`src/spokeClient.ts` 用生成的 wire 类型构造 KnowledgeEntry / Relation |
-| nexus.http-api.daemon | Daemon API | `src/daemonClient.ts` 经 `/v1/daemon/*`（loopback + API key）调用 worlds / kb 路由 |
+| spoke.sdk.connect | Connect client (TS + Rust reference) | `package.json` 依赖 `@42ch/spoke-connect@0.10.0`；`src/connectClient.ts` 建立 spoke-connect 会话（ConnectHello 握手已完成，阻塞在 auth challenge——见第 3 节） |
 | nexus.data.knowledge-pack | Knowledge Pack portable transfer format | `scripts/exportPack.ts` 调用 `POST /v1/daemon/worlds/:world_id/kb/pack/export` 成功导出 |
 
 ## 3. 问题与 blocker（平台待办）
@@ -71,6 +71,6 @@ my-agent-demo 是一个基于 Nexus & Spoke 的叙事 agent 集成（TS/Node）�
 
 - **分栏派生**：第 3 节含 `blocker` ×1 + `issue` ×3，第 4 节 `undeveloped-need` ×1 → 平台待办；第 5 节 `adoption-gap` ×4 → adoption；第 3/4 节无 `adoption-gap` 行，第 5 节无 `issue` / `blocker` / `undeveloped-need` 行，不混栏。
 - **必填字段**：第 3/4/5 节每行六列齐全（category / severity / product / capability id 或 unlisted / evidence / suggested action）；`category` ∈ {issue, blocker, undeveloped-need, adoption-gap}（小写），`severity` ∈ {high, medium, low}（小写），`product` ∈ {Nexus, Spoke, both}（首字母大写），均为闭集 token。
-- **join 不变量**：非 `unlisted` 行共 8 个 id（`nexus.agent-api.connect-host`、`nexus.sdk.nexus-contracts`、`spoke.schemas.ops`、`nexus.cli.connect`、`nexus.sdk.compute-module-abi`、`spoke.sdk.native-bindings`、`spoke.agent-api.operations`、`nexus.config.strategy-bundle`）均可对 `skills/nexus-integration-inspect/references/capabilities/{nexus,spoke}-capabilities.md` grep 到原文；第 2 节 `spoke.sdk.typescript`、`nexus.http-api.daemon`、`nexus.data.knowledge-pack` 同属基线 id；`undeveloped-need` 行为字面量 `unlisted`；`adoption-gap` 行均引用真实 id。
+- **join 不变量**：非 `unlisted` 行共 8 个 id（`nexus.agent-api.connect-host`、`nexus.sdk.nexus-contracts`、`spoke.schemas.ops`、`nexus.cli.connect`、`nexus.sdk.compute-module-abi`、`spoke.sdk.native-bindings`、`spoke.agent-api.operations`、`nexus.config.strategy-bundle`）均可对 `skills/nexus-integration-inspect/references/capabilities/{nexus,spoke}-capabilities.md` grep 到原文；第 2 节 `spoke.sdk.typescript`、`spoke.sdk.connect`、`nexus.data.knowledge-pack` 同属基线 id；`undeveloped-need` 行为字面量 `unlisted`；`adoption-gap` 行均引用真实 id。
 - **unlisted 占比**：占比 = 第 3+4+5 节 `unlisted` 行数 ÷ 第 3+4+5 节总行数（不含第 2 节已集成项确认）——本例 1 条 / 共 9 条 ≈ 11% ≤ ~30%，无需基线漂移提示。
 - **evidence 自包含**：每条含报错原文（含命令名 / 文件路径）或项目文件路径 + 位置，无「见上方 session」。

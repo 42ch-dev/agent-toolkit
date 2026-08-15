@@ -72,7 +72,7 @@
 
 ## 落盘规则
 
-- 默认写到 **session 工作区根目录** `nexus-feedback-report.md`（用户可指定其他路径）；**禁止**写入技能目录（`skills/nexus-feedback/`、`skills/nexus-integration-inspect/`）或 harness 目录（`.mstar/` 等）；用户指定路径落入上述禁止目录时，**拒绝**并提示改为工作区路径。
+- 默认写到 **session 工作区根目录** `nexus-feedback-report.md`（用户可指定其他路径）；**禁止**写入本技能目录、inspect 技能目录、任何 harness/过程目录；用户指定路径落入上述禁止目录时，**拒绝**并提示改为工作区路径。
 - 目标文件已存在时先问用户：覆盖 / 写时间戳文件，**不得静默覆盖**。
 - 无占位符；示例只用于示意（见下）。
 - 生成中断时重新运行本技能即可重新生成报告。
@@ -112,7 +112,7 @@ my-agent-demo 是一个基于 Nexus & Spoke 的叙事 agent 集成（TS/Node）�
 | capability id | 能力名 | 确认方式 |
 |---|---|---|
 | spoke.sdk.typescript | @42ch/spoke-schemas + @42ch/spoke-operations (npm) | `package.json` 依赖 `@42ch/spoke-schemas@0.10.0`；`src/spokeClient.ts` 用生成的 wire 类型构造 KnowledgeEntry / Relation |
-| nexus.http-api.daemon | Daemon API | `src/daemonClient.ts` 经 `/v1/daemon/*`（loopback + API key）调用 worlds / kb 路由 |
+| spoke.sdk.connect | Connect client (TS + Rust reference) | `package.json` 依赖 `@42ch/spoke-connect@0.10.0`；`src/connectClient.ts` 建立 spoke-connect 会话（ConnectHello 握手已完成，阻塞在 auth challenge——见第 3 节） |
 | nexus.data.knowledge-pack | Knowledge Pack portable transfer format | `scripts/exportPack.ts` 调用 `POST /v1/daemon/worlds/:world_id/kb/pack/export` 成功导出 |
 
 ## 3. 问题与 blocker（平台待办）
@@ -146,4 +146,4 @@ my-agent-demo 是一个基于 Nexus & Spoke 的叙事 agent 集成（TS/Node）�
 6. **low** — `spoke.sdk.native-bindings`（adoption-gap，Spoke）。
 ```
 
-> **示例自检说明**：上表非 `unlisted` 的 id（`nexus.agent-api.connect-host`、`nexus.sdk.nexus-contracts`、`spoke.schemas.ops`、`nexus.data.knowledge-pack`、`nexus.sdk.compute-module-abi`、`spoke.sdk.native-bindings`、`spoke.sdk.typescript`、`nexus.http-api.daemon`）均可对基线文件 grep 到原文；`unlisted` 1 条 / 共 6 条 ≈ 17% ≤ ~30%；`adoption-gap` 行均引用真实 id；`undeveloped-need` 行为 `unlisted`；平台待办与 adoption 分栏不混。
+> **示例自检说明**：上表非 `unlisted` 的 id（`nexus.agent-api.connect-host`、`nexus.sdk.nexus-contracts`、`spoke.schemas.ops`、`nexus.data.knowledge-pack`、`nexus.sdk.compute-module-abi`、`spoke.sdk.native-bindings`、`spoke.sdk.typescript`、`spoke.sdk.connect`）均可对基线文件 grep 到原文；`unlisted` 1 条 / 共 6 条 ≈ 17% ≤ ~30%；`adoption-gap` 行均引用真实 id；`undeveloped-need` 行为 `unlisted`；平台待办与 adoption 分栏不混。

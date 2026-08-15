@@ -13,7 +13,7 @@
 
 1. **接入面（integration surface）**：按基线行描述（CLI / HTTP / SDK / agent 接口 / 协议信封 / 配置格式）。
 2. **版本与来源**：基线行的 `version` + `version_source`（如 `@42ch/spoke-schemas` npm 包 `0.10.0`、`spoke-connect` crate `=0.10.0`）。
-3. **示例 / 参考位置**：把基线行 `source_path`（调研检出相对路径）转换为**可移植引用**——仓库限定相对路径 + 基线头部的调研上下文（如「Nexus 仓库 `docs/nexus-runtime.md`（surveyed HEAD `7b04deaf`）」、「Spoke 仓库 `packages/spoke-connect-ts/`（npm 包 `@42ch/spoke-connect` 0.10.0）」），或可公开访问的 URL（npm / crates.io / GitHub 路径）。**不要**照抄 `source_path` 原值——调研检出相对路径以 `..` 开头、只对调研检出有效，对第三方被检项目（输出清单写入其工作区根）通常解析不到。给出一条可执行的接入路径——具体到命令 / 函数 / 请求面，而不是泛泛而谈。
+3. **示例 / 参考位置**：把基线行 `source_path`（仓库检出相对路径）转换为**可移植引用**——仓库限定相对路径 + 基线头部的调研上下文（如「Nexus 仓库 `docs/nexus-runtime.md`（surveyed HEAD `7b04deaf`）」、「Spoke 仓库 `packages/spoke-connect-ts/`（npm 包 `@42ch/spoke-connect` 0.10.0）」），或可公开访问的 URL（npm / crates.io / GitHub 路径）。**不要**照抄 `source_path` 原值——该路径相对被调研仓库检出根，对被检项目（输出清单写入其工作区根）通常解析不到。给出一条可执行的接入路径——具体到命令 / 函数 / 请求面，而不是泛泛而谈。
 
 **禁止**：
 
@@ -46,6 +46,7 @@
 - 「项目为纯 TS 前端集成，无 wasm32 计算模块（nexus.sdk.compute-module-abi）。」
 - 「项目不通过外部策略包驱动调度，策略内置于自家服务（nexus.config.strategy-bundle）。」
 - 「项目仅消费 Spoke 数据协议，无需 C#/Kotlin/Swift/Go/Python 原生绑定（spoke.sdk.native-bindings）。」
+- 「项目为第三方运行时集成，daemon 是开发/调试态本地进程面（非第三方运行时集成面），未接入（nexus.http-api.daemon）。」
 
 ## 代表性示例（partial worked example）
 
