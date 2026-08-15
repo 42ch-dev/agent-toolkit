@@ -87,4 +87,4 @@ Open the remaining references when their step comes up:
 | `references/capabilities/README.md` | always — id vocabulary + refresh flow |
 | `references/checklist-template.md` | before writing the output checklist |
 | `references/advice-guide.md` | when writing integration / self-dev advice |
-| `references/example-checklist.md` | before producing output — canonical worked example (all three statuses + integration & self-dev advice) |
+| `references/example-checklist.md` | before producing output — representative worked example (subset only — runtime checklist must include every baseline row) |
