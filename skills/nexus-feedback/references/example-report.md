@@ -28,7 +28,7 @@ my-agent-demo 是一个基于 Nexus & Spoke 的叙事 agent 集成（TS/Node）�
 |---|---|---|
 | spoke.sdk.typescript | @42ch/spoke-schemas + @42ch/spoke-operations (npm) | `package.json` 依赖 `@42ch/spoke-schemas@0.10.0`；`src/spokeClient.ts` 用生成的 wire 类型构造 KnowledgeEntry / Relation |
 | spoke.sdk.connect | Connect client (TS + Rust reference) | `package.json` 依赖 `@42ch/spoke-connect@0.10.0`；`src/connectClient.ts` 建立 spoke-connect 会话（ConnectHello 握手已完成，阻塞在 auth challenge——见第 3 节） |
-| nexus.data.knowledge-pack | Knowledge Pack portable transfer format | `scripts/exportPack.ts` 调用 `POST /v1/daemon/worlds/:world_id/kb/pack/export` 成功导出 |
+| nexus.data.knowledge-pack | Knowledge Pack portable transfer format | `scripts/exportPack.ts` 调用 CLI `nexus42 creator world kb pack export` 成功导出 |
 
 ## 3. 问题与 blocker（平台待办）
 
