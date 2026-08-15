@@ -21,19 +21,19 @@
 |---|---|---|---|---|---|
 |  |  |  |  |  |  |
 
-- **capability id / 能力名**：从能力基线（`capabilities/nexus-capabilities.md` / `capabilities/spoke-capabilities.md`）**逐字复制**，不发明、不变换、不派生 id。
+- **capability id / 能力名**：从能力基线（`references/capabilities/nexus-capabilities.md` / `references/capabilities/spoke-capabilities.md`）**逐字复制**，不发明、不变换、不派生 id。
 - **集成状态**：闭集 `integrated` | `not-integrated` | `not-applicable`（小写；仅此三值，不存在「部分集成」状态）。
-- **证据**：每行必填——路径 / 引用 / 观察到的行为（能调用、有接入代码、配置了连接）。
+- **证据**：每行必填——路径 / 引用 / 观察到的行为（能调用、有接入代码、配置了连接）。`not-integrated` 必须是**已核实的不存在**（verified absence）：证据不充分时，在本列记录搜索范围/局限（如「全仓 grep 仅覆盖 src/ 下 TS 文件」），或先问用户再定稿该行，不得默认判为 `not-integrated`。对 `not-applicable` 行，本列填写一行使用场景理由（该能力为何不适用于本项目）。
 - **缺口**：可选——已集成能力上仍未被使用的表面（residual unused surface），**不是**第四种状态。
 - **advice_type**：行级闭集 `integration` | `none`。`not-integrated` → `integration`（必填建议）；`integrated` / `not-applicable` → `none`。**自研建议不是行级 advice_type**，见下文「自研建议区」。
 
 ## 集成建议区
 
-对每个 `not-integrated` 行写一段集成建议：如何使用**现有** Nexus/Spoke 能力补上（引用基线行的 integration surface、版本、示例位置）。规则与语气见 `advice-guide.md`。
+对每个 `not-integrated` 行写一段集成建议：如何使用**现有** Nexus/Spoke 能力补上（引用基线行的 integration surface、版本、示例位置）。规则与语气见 `references/advice-guide.md`。
 
 ## 自研建议区（独立章节）
 
-被检项目需要、但能力基线**没有匹配 capability id** 的需求（unlisted）：逐条给出「需自行开发」的方向建议。**不得静默丢弃**；自研建议**不等于**、也不替代上面集成建议。判据与写法见 `advice-guide.md`。
+被检项目需要、但能力基线**没有匹配 capability id** 的需求（unlisted）：逐条给出「需自行开发」的方向建议。**不得静默丢弃**；自研建议**不等于**、也不替代上面集成建议。判据与写法见 `references/advice-guide.md`。
 
 ## 状态判据
 
@@ -41,9 +41,9 @@
 - **`not-integrated`**：能力适用（符合项目用例），但未使用或不可用。必须给集成建议。
 - **`not-applicable`**：明显超出本项目用例。**必须附一行使用场景理由**；不得标成 `not-integrated`。
 
-## 示例行（worked example，示意用假想项目「my-agent-demo」）
+## 示例行（trimmed row example，示意用假想项目「my-agent-demo」）
 
-完整示例（三种状态、集成建议区与自研建议区齐全）见 `example-checklist.md`；下表为精简行示例：
+代表性示例（三种状态、集成建议区与自研建议区齐全，**精简子集**）见 `references/example-checklist.md`；下表为精简行示例：
 
 | capability id | 能力名 | 集成状态 | 证据 | 缺口 | advice_type |
 |---|---|---|---|---|---|
@@ -53,7 +53,7 @@
 
 ### 示例：集成建议（对应上表 not-integrated 行）
 
-- **`nexus.agent-api.connect-host`**：使用现有能力接入。基线行给出接入面为 spoke-connect 跨进程 invoke（恰好六个 op：`upsert` / `promote` / `relate` / `check` / `assemble` / `compute`），依赖版本 `spoke-connect =0.10.0`（crates.io；TS 参考客户端 `@42ch/spoke-connect` 同版本）。参考位置：`../nexus/docs/nexus-runtime.md`（peer visibility / capability tokens）与 `../spoke/packages/spoke-connect/`。步骤：① 接入 `@42ch/spoke-connect` 并完成 ConnectHello 签名握手 → ② 在部署配置 allowlist 中授权对端 → ③ 用签发的 capability token 调用六个 op 之一验证连通 → ④ 按需扩展其余 op。
+- **`nexus.agent-api.connect-host`**：使用现有能力接入。基线行给出接入面为 spoke-connect 跨进程 invoke（恰好六个 op：`upsert` / `promote` / `relate` / `check` / `assemble` / `compute`），依赖版本 `spoke-connect =0.10.0`（crates.io；TS 参考客户端 `@42ch/spoke-connect` 同版本）。参考位置：Nexus 仓库 `docs/nexus-runtime.md`（peer visibility / capability tokens；基线调研 HEAD `7b04deaf`）与 Spoke 仓库 `packages/spoke-connect-ts/`（TS 参考客户端 npm 包 `@42ch/spoke-connect`；基线调研 HEAD `05915ad`）。步骤：① 接入 `@42ch/spoke-connect` 并完成 ConnectHello 签名握手 → ② 在部署配置 allowlist 中授权对端 → ③ 用签发的 capability token 调用六个 op 之一验证连通 → ④ 按需扩展其余 op。
 
 ### 示例：自研建议（unlisted，独立章节）
 

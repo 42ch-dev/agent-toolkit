@@ -28,7 +28,7 @@
 
 ## 说明
 
-- `survey_date` 与 `research_date` 同义（brief 字段名 = contract `survey_date` 的别名），本文件两列同值 `2026-08-15`。
+- `survey_date` 为规范列；`research_date` 为 deprecated 别名（= contract `survey_date` 的别名，同值仅向后兼容），本文件两列当前同值 `2026-08-15`。
 - 版本一致性：workspace manifest 版本 `0.1.0` 覆盖所有 `version.workspace = true` 的 crates 与 `nexus42`/`nexus-runtime` 二进制；npm 包（`@42ch/nexus-contracts` 0.30.0）独立版本化，其变更随 `wire_contracts_changed` 迭代节奏推进。
 - 无 root CHANGELOG.md 属预期（contract 认可的回退路径），版本一律以 manifest 为准。
 - 刷新与漂移检测：见同目录 README.md §刷新指引。

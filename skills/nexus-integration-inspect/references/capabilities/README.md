@@ -5,6 +5,14 @@
 - `nexus-capabilities.md` — Nexus 能力基线（surveyed HEAD `7b04deaf`，2026-08-15）
 - `spoke-capabilities.md` — Spoke 能力基线（surveyed HEAD `05915ad`，2026-08-15）
 
+## 符号解析（供独立读者）
+
+本文件与 `SKILL.md` 少量引用 Morning Star harness 符号（仅 agent-toolkit 仓库内成立；独立部署时这些路径可能不存在，相关引用只作契约背景，不阻塞技能运行）：
+
+- `{HARNESS_DIR}` → `.mstar/`（harness 根目录）
+- `{ITERATION_DIR}` → `.mstar/iterations/`（迭代产物，如 `.mstar/iterations/iter-2026-Q3/`）
+- `{KNOWLEDGE_DIR}` → `.mstar/knowledge/`（知识库目录）
+
 ## 调研方法（有界调研）
 
 **范围（只读，硬边界）**：
@@ -47,13 +55,15 @@
 
 ## 版本跟踪约定
 
-- 行字段：`version`（来源版本号）+ `version_source`（来源文件 + 字段）+ `survey_date`/`research_date`（同义别名，= 本次调研日 2026-08-15）+ `source_path`（证据路径）。
+- 行字段：`version`（来源版本号）+ `version_source`（来源文件 + 字段）+ `survey_date`（**规范列**，= 本次调研日 2026-08-15）+ `source_path`（证据路径）。`research_date` 为 **deprecated 别名**（与 `survey_date` 同值，仅向后兼容）；**刷新时只写 `survey_date`，不再双写**；本次不改写既有行值。
 - **版本来源优先级**（对齐 technical-contract.md §2）：workspace manifest 版本（`Cargo.toml [workspace.package] version`）> CHANGELOG 最新条目 > README/docs 声明版本；胜者记入 `version_source`。**显式补充（文档化 supplement，与 §2 顺序兼容）**：能力承载为独立版本化发布包（npm/crates.io，如 `@42ch/nexus-contracts`）时，以该包自身 manifest 版本为准并直接记入 `version_source`，不套用 workspace 优先级。
 - 多 manifest 仓库（`../spoke` 有 Cargo.toml + Package.swift + go.mod）：每行选一个 manifest 记录；无版本号字段的 manifest（`Package.swift`、`go.mod`）不参与优先级，相关能力回退 workspace manifest。
 - `../nexus` 根部无 `CHANGELOG.md` 属预期（回退 manifest/docs），不是错误。
 - 基线文件头部记录：产品名、调研日期、surveyed HEAD SHA（full + short）、版本优先级说明。
 
 ## 刷新指引
+
+> **前置条件**：刷新流程需要能访问 Nexus/Spoke 仓库检出（`../nexus` / `../spoke`）。第三方开发者无仓库访问权时**不需要**刷新基线——按 `SKILL.md` 工作流把漂移记入检查清单头部即是对应的处理。
 
 **何时重新调研（触发条件，任一命中即刷新）**：
 1. 基线头部记录的 HEAD SHA 与当前 `git -C ../nexus rev-parse --short HEAD` / `git -C ../spoke rev-parse --short HEAD` 不一致（机械漂移检测）。
@@ -77,7 +87,7 @@ git -C ../spoke rev-parse --short HEAD   # 与 spoke-capabilities.md 头部比�
 **自检（每次落盘必跑，grep 可复核）**：
 1. id 全匹配 regex：提取两文件 id 列后逐条比对 `^(nexus|spoke)\.[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*$`。
 2. 跨文件唯一：全部 id `sort | uniq -d` 为空。
-3. 每行含 `version` + `version_source` + `research_date`（及 `survey_date`）。
+3. 每行含 `version` + `version_source` + `survey_date`（规范列）；`research_date`（deprecated 别名）如仍存在须与 `survey_date` 同值。
 4. 行首 `product` 与 id 前缀一致；无 `partial` 状态词；无越调研边界内容。
 
 ## Deprecated ids

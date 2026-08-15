@@ -13,7 +13,7 @@
 
 1. **接入面（integration surface）**：按基线行描述（CLI / HTTP / SDK / agent 接口 / 协议信封 / 配置格式）。
 2. **版本与来源**：基线行的 `version` + `version_source`（如 `@42ch/spoke-schemas` npm 包 `0.10.0`、`spoke-connect` crate `=0.10.0`）。
-3. **示例 / 参考位置**：基线行 `source_path` 指向的文档或包目录（如 `../nexus/docs/nexus-runtime.md`、`../spoke/packages/spoke-connect/`），给出一条可执行的接入路径——具体到命令 / 函数 / 请求面，而不是泛泛而谈。
+3. **示例 / 参考位置**：把基线行 `source_path`（调研检出相对路径）转换为**可移植引用**——仓库限定相对路径 + 基线头部的调研上下文（如「Nexus 仓库 `docs/nexus-runtime.md`（surveyed HEAD `7b04deaf`）」、「Spoke 仓库 `packages/spoke-connect-ts/`（npm 包 `@42ch/spoke-connect` 0.10.0）」），或可公开访问的 URL（npm / crates.io / GitHub 路径）。**不要**照抄 `source_path` 原值——调研检出相对路径以 `..` 开头、只对调研检出有效，对第三方被检项目（输出清单写入其工作区根）通常解析不到。给出一条可执行的接入路径——具体到命令 / 函数 / 请求面，而不是泛泛而谈。
 
 **禁止**：
 
@@ -25,7 +25,7 @@
 
 **适用判据（两者都满足才进自研建议区）**：
 
-1. **基线未覆盖**：需求在能力基线（`capabilities/nexus-capabilities.md` + `capabilities/spoke-capabilities.md` 的全部行）中无匹配 capability id——含跨产品检索后仍无匹配。
+1. **基线未覆盖**：需求在能力基线（`references/capabilities/nexus-capabilities.md` + `references/capabilities/spoke-capabilities.md` 的全部行）中无匹配 capability id——含跨产品检索后仍无匹配。
 2. **被检项目特有**：是该项目的真实需求；若疑似基线调研遗漏（而非项目特有），提示用户走反馈流程登记，而不是现场发明 id。
 
 **写法**：
@@ -47,6 +47,6 @@
 - 「项目不通过外部策略包驱动调度，策略内置于自家服务（nexus.config.strategy-bundle）。」
 - 「项目仅消费 Spoke 数据协议，无需 C#/Kotlin/Swift/Go/Python 原生绑定（spoke.sdk.native-bindings）。」
 
-## 完整 worked example
+## 代表性示例（partial worked example）
 
-三种状态的示例行 + 一条集成建议 + 一条自研建议的完整示例，见 `example-checklist.md`（假想项目「my-agent-demo」的完整输出示例）；`checklist-template.md` §示例行为精简版行示例。
+三种状态的示例行 + 一条集成建议 + 一条自研建议的代表性示例，见 `references/example-checklist.md`（假想项目「my-agent-demo」的代表性输出示例）；`references/checklist-template.md` §示例行为精简版行示例。**运行时输出必须包含全部基线行（当前 21 行）**；示例文件仅演示状态与建议的写法，不代表输出行数。
