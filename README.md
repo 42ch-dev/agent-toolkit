@@ -18,7 +18,6 @@ Skills for third-party developers building agent integrations on [Nexus](https:/
 - **Check your integration** — item-by-item checklist against the published Nexus & Spoke capability baseline (`integrated` / `not-integrated` / `not-applicable`), with integration advice and self-development advice.
 - **Report back to us** — turn session-context issues, blockers, and undeveloped needs into a structured feedback report the Nexus & Spoke maintainers can act on directly.
 - **Version-tracked baseline** — every capability carries its surveyed version, source, and date; refresh is maintainer-run when new versions ship.
-- **Bilingual by design** — `SKILL.md` in English (agent-facing trigger + workflow), `references/` in Chinese (templates and rules).
 
 ## 📦 Skills
 
@@ -44,24 +43,6 @@ This copies the skills into your local skills directory (one subdirectory per sk
 **Send feedback**
 
 > "Summarize the Nexus/Spoke integration problems in this session as a feedback report" → produces `nexus-feedback-report.md` at your workspace root, consumable by the maintainers without the original session.
-
-## 🗂️ Repository structure
-
-```text
-agent-toolkit/
-├── skills/
-│   ├── README.md                        # Skills index
-│   ├── nexus-integration-inspect/       # Integration checklist skill
-│   │   ├── SKILL.md                     # Trigger contract + workflow (EN)
-│   │   └── references/                  # Baseline, checklist template, advice guide (ZH)
-│   │       └── capabilities/            # Shared, version-tracked capability baseline
-│   └── nexus-feedback/                  # Feedback report skill
-│       ├── SKILL.md                     # Trigger contract + workflow (EN)
-│       └── references/                  # Report template, extraction guide (ZH)
-├── .mstar/                              # Morning Star harness (process artifacts + knowledge)
-├── AGENTS.md
-└── LICENSE
-```
 
 ## 📄 License
 
