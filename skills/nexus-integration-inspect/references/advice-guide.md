@@ -49,4 +49,4 @@
 
 ## 完整 worked example
 
-三种状态的示例行 + 一条集成建议 + 一条自研建议的完整示例，见 `checklist-template.md` §示例行（假想项目「my-agent-demo」）。
+三种状态的示例行 + 一条集成建议 + 一条自研建议的完整示例，见 `example-checklist.md`（假想项目「my-agent-demo」的完整输出示例）；`checklist-template.md` §示例行为精简版行示例。

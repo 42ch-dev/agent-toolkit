@@ -43,6 +43,8 @@
 
 ## 示例行（worked example，示意用假想项目「my-agent-demo」）
 
+完整示例（三种状态、集成建议区与自研建议区齐全）见 `example-checklist.md`；下表为精简行示例：
+
 | capability id | 能力名 | 集成状态 | 证据 | 缺口 | advice_type |
 |---|---|---|---|---|---|
 | spoke.sdk.typescript | @42ch/spoke-schemas + @42ch/spoke-operations (npm) | integrated | `package.json` 依赖 `@42ch/spoke-schemas@0.10.0`；`src/spokeClient.ts` 使用生成的 wire 类型构造 KnowledgeEntry / Relation | 未使用 spoke-operations 的生命周期助手（非阻塞） | none |
@@ -56,4 +58,4 @@
 ### 示例：自研建议（unlisted，独立章节）
 
 - **需求**：项目需要多租户隔离的团队工作区管理（按租户切分 world 数据与权限），能力基线中无匹配 capability id。
-- **自研方向**：租户映射与权限在你方服务层实现——数据面仍走已集成的 daemon HTTP 面（`nexus.http-api.daemon`）与 Knowledge Pack 传输格式（`nexus.data.knowledge-pack`）；不建议改动 Nexus/Spoke 侧。该需求可同步通过反馈流程登记，供维护者评估是否纳入基线。
+- **自研方向**：租户映射与权限在你方服务层实现——数据面可复用现有能力（daemon HTTP 面 `nexus.http-api.daemon`、Knowledge Pack 传输格式 `nexus.data.knowledge-pack`）按需接入；不建议改动 Nexus/Spoke 侧。该需求可同步通过反馈流程登记，供维护者评估是否纳入基线。

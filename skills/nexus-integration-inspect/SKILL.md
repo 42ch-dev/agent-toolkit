@@ -35,6 +35,7 @@ Open the remaining references when their step comes up:
 
 - `references/checklist-template.md` — before writing the output checklist (columns, status criteria, worked example).
 - `references/advice-guide.md` — when writing integration or self-dev advice.
+- `references/example-checklist.md` — before producing output; canonical worked example covering all three statuses plus integration and self-dev advice.
 
 ## Workflow
 
@@ -80,3 +81,4 @@ Open the remaining references when their step comes up:
 | `references/capabilities/README.md` | always — id vocabulary + refresh flow |
 | `references/checklist-template.md` | before writing the output checklist |
 | `references/advice-guide.md` | when writing integration / self-dev advice |
+| `references/example-checklist.md` | before producing output — canonical worked example (all three statuses + integration & self-dev advice) |
