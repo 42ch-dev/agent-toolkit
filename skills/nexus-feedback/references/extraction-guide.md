@@ -81,4 +81,4 @@
 ## 8. 停止条件（不猜、不放宽）
 
 1. **基线缺失**：`../nexus-integration-inspect/references/capabilities/` 三文件或 `checklist-template.md` 缺失 → **停止**并报告（blocked_by 未满足）；禁止凭记忆补能力行。
-2. **unlisted 占比 > ~30%**：超过约三成条目无基线 id → 在报告头写**基线漂移提示**，建议先跑 inspect 刷新流程（`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引）；**不放松 join 规则**，仍逐字引用或 `unlisted`。
+2. **unlisted 占比 > ~30%**：超过约三成条目无基线 id → **停止**并报告用户：基线可能已过期，先回到 inspect 计划跑刷新流程（`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引），再依赖本报告；**不放松 join 规则**，仍逐字引用或 `unlisted`。

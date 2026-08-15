@@ -101,4 +101,4 @@ Open the remaining references when their step comes up:
 | `../nexus-integration-inspect/references/capabilities/nexus-capabilities.md` | always — Nexus baseline (read-only) |
 | `../nexus-integration-inspect/references/capabilities/spoke-capabilities.md` | always — Spoke baseline (read-only) |
 | `../nexus-integration-inspect/references/capabilities/README.md` | always — id vocabulary, join rules, refresh flow |
-| `../nexus-integration-inspect/references/checklist-template.md` | always — checklist status semantics, reused read-only to confirm integrated items |
+| `../nexus-integration-inspect/references/checklist-template.md` | always — checklist status semantics, reused read-only to confirm integrated items and locate gaps |

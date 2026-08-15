@@ -81,7 +81,7 @@
 3. `adoption-gap` 行无 `unlisted`；`undeveloped-need` 行全部为 `unlisted`。
 4. 平台待办（第 3/4 节）与 adoption（第 5 节）不混栏。
 5. 全文无「见上方 session」；每条 evidence 自包含。
-6. `unlisted` 条目占比 ≤ ~30%；超限 → 在文件头写基线漂移提示并告知用户先跑 inspect 刷新流程，**不放松 join 规则**。
+6. `unlisted` 条目占比 ≤ ~30%；超限 → **停止**并报告用户：基线可能已过期，先回到 inspect 计划跑刷新流程（`../nexus-integration-inspect/references/capabilities/README.md` §刷新指引），再依赖本报告；**不放松 join 规则**。
 
 ---
 
