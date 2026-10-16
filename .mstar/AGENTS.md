@@ -18,6 +18,9 @@ and skill index SSOT: `mstar-harness-core` and topic `mstar-*` skills.
 | `{ITERATION_DIR}` | `.mstar/iterations/` |
 | `{KNOWLEDGE_DIR}` | `.mstar/knowledge/` |
 | `{SPECS_DIR}` | `.mstar/specs/` |
+| `{WORKFLOW_DIR}` | `.mstar/workflows/` (created by engine writers on demand) |
+| `{PROJECT_DIR}` | `.mstar/projects/` |
+| Execution authority | `.mstar/store.db` |
 
 ## Content Boundaries
 - `docs/`: human docs (installation, contribution)
@@ -30,9 +33,11 @@ and skill index SSOT: `mstar-harness-core` and topic `mstar-*` skills.
 ## State Machine & Status
 - `Todo → InProgress → InReview → Done | Blocked`; `Done` only by
   `project-manager` or `qa-engineer`.
-- `status.json` is SSOT for plan state and residuals
-  (`residual_findings[<plan_id>]`); `notes.json` for session notes.
-- Open R# are registered in `status.json`; archived only on closure.
+- Execution authority (root register, workflow/plan rows) and open issues
+  (residuals SSOT) live in `.mstar/store.db`; read via the `mstar` CLI
+  (`mstar status validate` / `mstar plan show` / `mstar issue list`).
+- Legacy `status.json` / workflow `snapshot.json` are one-time import
+  sources only; retained copies live in `archived/`.
 
 ## Gates
 - Prepare: `specify → clarify → plan (locked)` before implement dispatch.
@@ -42,7 +47,8 @@ and skill index SSOT: `mstar-harness-core` and topic `mstar-*` skills.
 
 ## Git Tracking (process vs results)
 - Tracked: `.mstar/AGENTS.md`, `.mstar/knowledge/**`, `.mstar/specs/**`
-- Ignored: `plans/`, `iterations/`, `sdd/`, `notes.json`, `status.json`, `archived/`
+- Ignored (default via `.mstar/**`): `plans/`, `iterations/`, `sdd/`,
+  `workflows/`, `projects/`, `store.db`, `status.json`, `archived/`
 
 Principle: process stays local; results are shared with the team.
 Cross-clone persistent handoff = `.mstar/AGENTS.md` + `knowledge/` + `specs/`.
